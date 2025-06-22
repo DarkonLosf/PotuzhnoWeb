@@ -9,9 +9,19 @@
             p{color: #ebede9;}
             body {font-family: 'Times New Roman', Times, serif ; background-color: #090a14; text-align: center; }
             img { max-width: 100%; height: auto; margin: 20px; }
+        
+            #language-switcher button img {vertical-align: middle; border-radius: 2px;}
+            #language-switcher { position: absolute; top: 10px; right: 10px;}
+            #language-switcher button { margin-left: 5px; padding: 5px 10px; background-color: #1c1d2a; color: #ebede9;  border: 1px solid #ebede9; border-radius: 5px; cursor: pointer;}
+            #language-switcher button:hover { background-color: #2a2b3d;}
         </style>
     </head>
     <body>
+        <div id="language-switcher">
+            <button onclick="switchLanguage('en')"><img src="flags/gb.png" alt="EN" width="24" height="16">EN</button>
+            <button onclick="switchLanguage('uk')"><img src="flags/ua.png" alt="UA" width="24" height="16">UA</button>
+            <button onclick="switchLanguage('eo')"><img src="flags/eo.png" alt="EO" width="24" height="16">EO</button>
+        </div>
         <h1>Instrumental</h1>
         <p>Welcome to official website of game "Instrumental"</p>
         <img src="hammer.png" alt="Hammer">
@@ -28,4 +38,31 @@
         <br>
         <img src="Billy.png" alt="Billy">
     </body>
+
+    <script>
+        const translations = 
+        {
+            en: {title: "Instrumental", welcome: "Welcome to official website of game 'Instrumental'", mainTheme: "Main Theme.ogg", runner: "Runner.ogg"},
+            uk: {title: "Instrumental", welcome: "Ласкаво просимо на офіційну веб-сторінку гри 'Instrumental'", mainTheme: "Main Theme.ogg", runner: "Runner.ogg"},
+            eo: {title: "Instrumental", welcome: "Bonvenon al la oficiala retejo de la ludo 'Instrumental'", mainTheme: "Main Theme.ogg", runner: "Runner.ogg"}
+        };
+
+        function switchLanguage(lang)
+        {
+            localStorage.setItem('lang', lang);
+            applyLanguage(lang);
+        }
+
+        function applyLanguage(lang)
+        {
+            document.querySelector('h1').innerText = translations[lang].title;
+            document.querySelector('p').innerText = translations[lang].welcome;
+            document.querySelectorAll('h2')[0].innerText = translations[lang].mainTheme;
+            document.querySelectorAll('h2')[1].innerText = translations[lang].runner;
+        }
+
+        window.onload = function(){const savedLang = localStorage.getItem('lang') || 'en'; applyLanguage(savedLang);};
+
+    </script>
+
 </html> 
